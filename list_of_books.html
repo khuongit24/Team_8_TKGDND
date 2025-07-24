@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách sản phẩm – Book Store</title>
+  <style>
+    :root {
+      --color-primary: #5f4cff;
+      --color-alert: #e60023;
+      --color-text: #333;
+      --color-bg: #eee;
+      --color-white: #fff;
+      --color-border: #ddd;
+      --radius: 4px;
+      --transition: .2s;
+      --max-width: 1200px;
+    }
+
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+    }
+    button, input {
+      font-family: inherit;
+    }
+
+    .top-banner {
+      background: var(--color-alert);
+      color: var(--color-white);
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+    .top-banner a {
+      font-weight: bold;
+      color: var(--color-white);
+      margin: 0 8px;
+    }
+    .top-banner button {
+      background: var(--color-white);
+      color: var(--color-alert);
+      border: none;
+      padding: 4px 12px;
+      border-radius: var(--radius);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .top-banner button:hover {
+      background: #f2f2f2;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .logo img {
+      height: 36px;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+    }
+    .header-icons {
+      display: flex;
+      gap: 16px;
+    }
+    .header-icons img {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      opacity: .8;
+      transition: opacity var(--transition);
+    }
+    .header-icons img:hover {
+      opacity: 1;
+    }
+
+    .wrapper {
+      max-width: var(--max-width);
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .filter {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .filter h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+    .filter .group {
+      margin-bottom: 20px;
+    }
+    .filter label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .filter input[type="checkbox"] {
+      width: 16px; height: 16px;
+    }
+    .price-range {
+      position: relative;
+    }
+    .price-range input[type="range"] {
+      width: 100%;
+    }
+    .price-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+    .sort-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .sort-tags button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      background: var(--color-white);
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .sort-tags button.active,
+    .sort-tags button:hover {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border-color: var(--color-primary);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .book-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .book-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .book-info {
+      padding: 12px;
+    }
+    .book-info .title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .book-info .author {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .book-info .price {
+      font-size: 16px;
+      color: var(--color-primary);
+      font-weight: bold;
+    }
+
+    .actions-fixed {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .actions-fixed button {
+      background: var(--color-white);
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      padding: 6px;
+      cursor: pointer;
+      transition: transform var(--transition);
+    }
+    .actions-fixed button:hover {
+      transform: scale(1.05);
+    }
+    .actions-fixed img {
+      width: 28px; height: 28px;
+    }
+
+    @media (max-width: 1024px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+      }
+      .filter {
+        display: none; 
+      }
+      .show-filter {
+        display: block;
+        margin-bottom: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Banner -->
+  <div class="top-banner">
+    THỨ 4 NGÀY VÀNG – FREESHIP NGẬP TRÀN&nbsp;
+    <a href="#">ÁP DỤNG ĐƠN 50K+</a>
+    <button>MUA NGAY</button>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="src/logo_bookstore.png" alt="Logo Book Store">
+    </div>
+    <div class="search-bar">
+      <input type="search" placeholder="Tìm kiếm sách, tác giả..." aria-label="Tìm kiếm sách">
+    </div>
+    <nav class="header-icons" aria-label="Liên kết nhanh">
+      <button aria-label="Tài khoản"><img src="src/Profile.png" alt=""></button>
+      <button aria-label="Yêu thích"><img src="src/Heart.png" alt=""></button>
+      <button aria-label="Giỏ hàng"><img src="src/Shop.png" alt=""></button>
+    </nav>
+  </header>
+
+  <!-- Wrapper -->
+  <div class="wrapper">
+
+    <!-- Sidebar Filter -->
+    <aside class="filter" aria-label="Bộ lọc sản phẩm">
+      <section class="group">
+        <h3>Giá tiền</h3>
+        <div class="price-range">
+          <input id="price-min" type="range" min="0" max="200000" step="1000" value="0">
+          <input id="price-max" type="range" min="0" max="200000" step="1000" value="200000">
+        </div>
+        <div class="price-labels">
+          <label for="price-min">0₫</label>
+          <label for="price-max">200.000₫</label>
+        </div>
+      </section>
+
+      <section class="group">
+        <h3>Độ tuổi</h3>
+        <label><input type="checkbox" checked> 0–7</label>
+        <label><input type="checkbox" checked> 7–15</label>
+        <label><input type="checkbox" checked> 15–17</label>
+        <label><input type="checkbox" checked> 18+</label>
+      </section>
+
+      <section class="group">
+        <h3>Thể loại</h3>
+        <label><input type="checkbox" checked> Comedy</label>
+        <label><input type="checkbox" checked> Drama</label>
+        <label><input type="checkbox" checked> Adventure</label>
+        <label><input type="checkbox" checked> Fantasy</label>
+        <label><input type="checkbox" checked> Sci-Fi</label>
+        <label><input type="checkbox" checked> Historical</label>
+      </section>
+
+      <section class="group">
+        <h3>Ngôn ngữ</h3>
+        <label><input type="checkbox" checked> Tiếng Việt</label>
+        <label><input type="checkbox" checked> Tiếng Anh</label>
+        <label><input type="checkbox" checked> Anh–Việt</label>
+        <label><input type="checkbox" checked> Tiếng Trung</label>
+        <label><input type="checkbox" checked> Tiếng Nhật</label>
+        <label><input type="checkbox" checked> Tiếng Hàn</label>
+      </section>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+      <div class="sort-tags">
+        <button class="active">Mới</button>
+        <button>Giá cao nhất</button>
+        <button>Giá thấp nhất</button>
+        <button>Nổi bật</button>
+      </div>
+
+      <div class="product-grid">
+        <article class="book-card">
+          <img src="src/9786043651591_1 1.png" alt="Bìa sách Lén nhặt chuyện đời">
+          <div class="book-info">
+            <div class="title">Lén nhặt chuyện đời</div>
+            <div class="author">Mộc trà</div>
+            <div class="price">110.000₫</div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="actions-fixed" aria-label="Tác vụ nhanh">
+    <button aria-label="Đánh dấu"><img src="src/bookmark_filled.png" alt=""></button>
+    <button aria-label="Chat"><img src="src/comment.png" alt=""></button>
+  </div>
+
+</body>
+</html>
