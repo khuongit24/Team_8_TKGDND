@@ -61,17 +61,25 @@
   <!-- Header -->
   <header>
     <div class="logo">
-      <img src="src/logo_bookstore.png" alt="Book Store Logo">
+      <a href="homepage.html">
+        <img src="src/logo_bookstore.png" alt="Book Store Logo">
+      </a>
     </div>
     <div class="search-bar">
       <input type="text" placeholder="Tìm kiếm">
     </div>
     <div class="header-icons">
-      <img src="src/Profile.png" alt="User">
-      <img src="src/Heart.png" alt="Favorites">
-      <img src="src/Shop.png" alt="Cart">
+      <a href="user.html">
+        <img src="src/Profile.png" alt="User">
+      </a>
+        <img src="src/Heart.png" alt="Favorites">
+      </a>
+      <a href="cart.html">
+        <img src="src/Shop.png" alt="Cart">
+      </a>
     </div>
   </header>
+
 
   <!-- Features Grid -->
   <section class="features">
@@ -148,12 +156,14 @@
         </div>
       </div>
       <div class="book-card">
-        <img src="src/9786044834115 1.png" alt="Đứa con của...">
-        <div class="book-info">
-          <div class="book-title">Đứa con của Chí Phèo</div>
-          <div class="book-author">Lê Thị Hồng Tâm</div>
-          <div class="book-price">95.000 VND</div>
-        </div>
+          <a href="product.html" class="book-card">
+            <img src="src/9786044834115 1.png" alt="Đứa con của Chí Phèo">
+            <div class="book-info">
+              <div class="book-title">Đứa con của Chí Phèo - Thị Nở</div>
+              <div class="book-author">Lê Thị Hồng Tâm</div>
+              <div class="book-price">95.000₫</div>
+            </div>
+          </a>
       </div>
       <div class="book-card">
         <img src="src/8934974178637 1.png" alt="Mắt biếc">
@@ -172,7 +182,7 @@
         </div>
       </div>
     </div>
-    <a href="#" class="view-all">Xem tất cả →</a>
+    <a href="#" class="view-all" onclick="location.href='list_of_books.html'">Xem tất cả →</a> 
   </section>
 
   <!-- Footer -->
