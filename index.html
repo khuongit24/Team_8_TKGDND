@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Khôi phục mật khẩu – Book Store</title>
+  <title>Đăng nhập – Book Store</title>
   <style>
     /* RESET & BASE */
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:Arial,sans-serif;color:#333;background:#fff;line-height:1.6;}
     a{color:inherit;text-decoration:none;}
-    button,input{font-family:inherit;}
     img{display:block;max-width:100%;}
+    button, input {font-family:inherit;}
 
-    /* BANNER & HEADER (giống login.html) */
+    /* BANNER & HEADER */
     .top-banner {
       background:#e60023;color:#fff;text-align:center;padding:10px;font-size:14px;
     }
@@ -40,8 +40,8 @@
     /* FORM WRAPPER */
     .form-container {
       max-width:400px;
-      margin:60px auto;
-      padding:0 20px;
+      margin: 60px auto;
+      padding: 0 20px;
     }
     .form-box {
       padding:40px 20px;
@@ -49,13 +49,18 @@
       border-radius:6px;
       box-shadow:0 2px 6px rgba(0,0,0,0.05);
     }
+    .form-box h1 {
+      font-size:20px;
+      color:#5f4cff;
+      text-align:center;
+      margin-bottom:8px;
+    }
     .form-box h2 {
       font-size:24px;
       text-align:center;
       margin-bottom:24px;
       color:#1a1a2e;
     }
-
     .form-group {
       margin-bottom:20px;
     }
@@ -73,31 +78,27 @@
       background: #f5f5ff;
       font-size:14px;
     }
-
-    .otp-methods {
-      display:flex;gap:10px;margin-bottom:20px;
-    }
-    .otp-methods button {
-      flex:1;
-      padding:10px;
-      border:1px solid #e0e0f0;
-      border-radius:6px;
-      background:#f5f5ff;
-      font-size:14px;
+    .form-group .show-pass {
+      float:right;
+      margin-top:-28px;
+      margin-right:8px;
+      font-size:13px;
+      color:#5f4cff;
       cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
-      gap:6px;
-      transition:background .2s,border .2s;
     }
-    .otp-methods button.active,
-    .otp-methods button:hover {
-      background:#00bfa5; border-color:#00bfa5; color:#fff;
-    }
-
-    .form-group.otp {
+    .form-options {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
       margin-bottom:24px;
+      font-size:14px;
     }
-
+    .form-options .remember {
+      display:flex;align-items:center;gap:6px;
+    }
+    .form-options a {
+      color:#5f4cff;
+    }
     .btn {
       width:100%;
       padding:12px;
@@ -107,17 +108,19 @@
       cursor:pointer;
       transition:background .2s;
     }
-    .btn-confirm {
+    .btn-login {
       background:#f27356;color:#fff;
       margin-bottom:12px;
     }
-    .btn-confirm:hover { background:#d55b48; }
-    .btn-back {
+    .btn-login:hover { background:#d55b48; }
+    .btn-register {
       background:transparent;
       color:#5f4cff;
       border:1px solid #5f4cff;
     }
-    .btn-back:hover { background:#f5f5ff; }
+    .btn-register:hover {
+      background:#f5f5ff;
+    }
   </style>
 </head>
 <body>
@@ -144,41 +147,31 @@
     </div>
   </header>
 
-  <!-- Forgot Form -->
+  <!-- Login Form -->
   <div class="form-container">
     <div class="form-box">
-      <h2>Khôi phục mật khẩu</h2>
+      <h1>Chào mừng bạn đến với nhà sách!</h1>
+      <h2>Hãy đăng nhập tài khoản của bạn</h2>
 
       <div class="form-group">
-        <label for="fp-username">Số điện thoại/Email</label>
-        <input id="fp-username" type="text" placeholder="Nhập số điện thoại hoặc email">
+        <label for="login-username">Số điện thoại/E-mail</label>
+        <input id="login-username" type="text" placeholder="Nhập số điện thoại hoặc email">
       </div>
-
       <div class="form-group">
-        <label>Chọn phương thức xác minh OTP</label>
-        <div class="otp-methods">
-          <button class="active">
-            <img src="src/sms.png" alt="SMS">Tin nhắn SMS
-          </button>
-          <button>
-            <img src="src/zalo.png" alt="Zalo">Zalo ZNS
-          </button>
-        </div>
+        <label for="login-password">Mật khẩu</label>
+        <input id="login-password" type="password" placeholder="Nhập mật khẩu">
+        <span class="show-pass">Hiện</span>
       </div>
 
-      <div class="form-group otp">
-        <label for="fp-otp">Mã xác nhận OTP</label>
-        <input id="fp-otp" type="text" placeholder="6 ký tự">
+      <div class="form-options">
+        <label class="remember">
+          <input type="checkbox"> Nhớ mật khẩu
+        </label>
+        <a href="forgotpass.html">Quên mật khẩu?</a>
       </div>
 
-      <div class="form-group">
-        <label for="fp-newpass">Mật khẩu</label>
-        <input id="fp-newpass" type="password" placeholder="Nhập mật khẩu">
-        <span class="show-pass" style="float:right;margin-top:-28px;margin-right:8px;color:#5f4cff;cursor:pointer;">Hiện</span>
-      </div>
-
-      <button class="btn btn-confirm" onclick="location.href='index.html'">Xác nhận</button>
-      <button class="btn btn-back" onclick="location.href='index.html'">Trở về</button>
+      <button class="btn btn-login" onclick="location.href='Homepage.html'">Đăng nhập</button>
+      <button class="btn btn-register" onclick="location.href='signup.html'">Đăng ký</button>
     </div>
   </div>
 
